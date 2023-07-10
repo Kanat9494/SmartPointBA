@@ -1,0 +1,29 @@
+﻿.mobile-bottom-nav {
+    display: flex;
+    height: 50px;
+    box-shadow: 0 -2px 2px -2px #fff;
+    background-color: #fff;
+}
+
+.mobile-bottom-nav__item {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mobile-bottom-nav__item-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-bottom-nav__item--active {
+    color: #00e600 !important; /* öâåò òåêñòà äëÿ àêòèâíîé êíîïêè */
+}
+
+.mobile-bottom-nav__item--inactive {
+    color: #323232 !important; /* öâåò òåêñòà äëÿ íåàêòèâíîé êíîïêè */
+}
+

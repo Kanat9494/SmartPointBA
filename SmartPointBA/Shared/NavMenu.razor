@@ -1,0 +1,38 @@
+﻿<nav id="bottom-nav" class="mobile-bottom-nav fixed-bottom" style="visibility: visible">
+    <div class="mobile-bottom-nav__item ">
+        <a href="" @onclick="HomeStatus" class=@($"nav-link {(isHome ? "mobile-bottom-nav__item--active" : "mobile-bottom-nav__item--inactive")}")>
+            <div class="mobile-bottom-nav__item-content">
+                <i class="material-icons" style="font-size: 2.5em">home</i>
+                Главная
+            </div>
+        </a>
+    </div>
+
+    <div class="mobile-bottom-nav__item">
+        <a href="counter" @onclick="AccountStatus" class=@($"nav-link {(isAccount ? "mobile-bottom-nav__item--active" : "mobile-bottom-nav__item--inactive")}")>
+            <div class="mobile-bottom-nav__item-content">
+                <i class="material-icons" style="font-size: 2.5em">person</i>
+                Аккаунт
+            </div>
+        </a>
+    </div>
+</nav>
+
+@code {
+    private bool collapseNavMenu = true;
+    private bool isHome = true;
+    private bool isAccount = false;
+
+    void HomeStatus()
+    {
+        isHome = true;
+        isAccount = false;
+    }
+
+    void AccountStatus()
+    {
+        isHome = false;
+        isAccount = true;
+    }
+}
+
