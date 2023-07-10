@@ -36,14 +36,16 @@
 </style>
 
 <div class="search-bar fixed-top">
-    <input type="text" placeholder="Поиск..." class="search-input">
+    <input type="text" placeholder="Поиск..." class="search-input" @bind-value="SearchInputValue">
     @*<MudTextField @bind-value="SearchInputValue" Label="" Variant="Variant.Text"></MudTextField>*@
 
     <button class="search-icon"><i class="material-icons" style="font-size: 2.5em; color: white">search</i></button>
     <img width="30" height="30" src="images/icons/second_white_bell_icon.png" class="ml-2"/>
 </div>
 
-<h1>Hello, world!</h1>
+<div class="mx-3">
+
+</div>
 
 Welcome to your new app.
 
@@ -51,4 +53,9 @@ Welcome to your new app.
 
 @code {
     public string SearchInputValue { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
 }
