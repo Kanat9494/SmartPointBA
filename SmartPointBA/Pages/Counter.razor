@@ -1,5 +1,12 @@
 ﻿@page "/counter"
 
+<style>
+    #bottom-nav {
+        display: none;
+    }
+</style>
+
+
 <h1>Counter</h1>
 
 <p role="status">Current count: @currentCount</p>
@@ -9,8 +16,14 @@
 @code {
     private int currentCount = 0;
 
-    private void IncrementCount()
+    public Counter()
+    {
+    }
+
+    private async Task IncrementCount()
     {
         currentCount++;
+
+        await App.Current.MainPage.Navigation.PushModalAsync(new TestPage());
     }
 }

@@ -1,0 +1,25 @@
+﻿@page "/account"
+@inject NavigationManager UriHelper
+
+<style>
+    #is-home-active {
+        color: #323232 !important;
+    }
+
+    #is-account-active {
+        color: #00e600 !important;
+    }
+</style>
+
+<h3>Account</h3>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+
+@code {
+    private void IncrementCount()
+    {
+
+        UriHelper.NavigateTo("counter");
+    }
+}
