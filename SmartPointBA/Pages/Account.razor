@@ -7,7 +7,7 @@
     }
 
     #is-account-active {
-        color: #00e600 !important;
+        color: #00cc00 !important;
     }
 </style>
 
@@ -15,11 +15,23 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<div style="border-radius: 10px; background-color: #f2f2f2; display: flex; justify-content: space-between; padding: 15px; align-items: center; "
+     class="mt-3" @onclick="ExitApp">
+    <p style="text-align: start; margin: auto 0; font-weight: bold; font-size: 17px;">Выйти</p>
+
+    <img style="text-align: end; margin: auto 0;" width="20" height="20" src="images/icons/next_icon.png"/>
+</div>
+
+<button @onclick="UploadImage">Upload photo</button>
+<img src="@imageData"/>
+
 
 @code {
+    private string imageData;
+
     protected override async Task OnInitializedAsync()
     {
-        
+
     }
 
     private void IncrementCount()
@@ -27,4 +39,33 @@
 
         UriHelper.NavigateTo("counter");
     }
+
+    private async Task UploadImage()
+    {
+        var result = await FilePicker.PickAsync(new PickOptions
+        {
+            PickerTitle = "Выберите изображение",
+            FileTypes = FilePickerFileType.Images,
+        });
+
+        if (result == null)
+            return;
+
+        using (var stream = await result.OpenReadAsync())
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                await stream.CopyToAsync(memoryStream);
+
+                var imageBytes = memoryStream.ToArray();
+
+                var base64 = Convert.ToBase64String(imageBytes);
+                var mimeType = "image/jpeg";
+                imageData = $"data:{mimeType};base64,{base64}";
+            }
+        }
+    }
+
+    private void ExitApp()
+        => System.Diagnostics.Process.GetCurrentProcess().Kill();
 }

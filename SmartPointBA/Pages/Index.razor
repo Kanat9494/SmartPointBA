@@ -3,13 +3,45 @@
 
 <style>
     #is-home-active {
-        color: #00e600 !important;
+        color: #00cc00 !important;
     }
 
     #is-account-active {
         color: #323232 !important;
     }
+
+    .search-bar {
+        background: #00cc00;
+        height: 55px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .search-input {
+        height: 40px;
+        border-radius: 10px;
+        margin: auto 5px;
+        padding: 10px;
+        width: 75%;
+        border: none;
+        outline: none;
+    }
+
+    .search-icon {
+        margin: auto 0;
+        display: flex;
+        align-items: center;
+    }
 </style>
+
+<div class="search-bar fixed-top">
+    <input type="text" placeholder="Поиск..." class="search-input">
+    @*<MudTextField @bind-value="SearchInputValue" Label="" Variant="Variant.Text"></MudTextField>*@
+
+    <button class="search-icon"><i class="material-icons" style="font-size: 2.5em; color: white">search</i></button>
+    <img width="30" height="30" src="images/icons/second_white_bell_icon.png" class="ml-2"/>
+</div>
 
 <h1>Hello, world!</h1>
 
@@ -17,3 +49,6 @@ Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
+@code {
+    public string SearchInputValue { get; set; }
+}
