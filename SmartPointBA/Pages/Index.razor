@@ -33,6 +33,47 @@
         display: flex;
         align-items: center;
     }
+
+    .categories-container {
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        margin-top: 50px;
+        scrollbar-width: thin; /* Устанавливает ширину полосы прокрутки */
+        scrollbar-color: transparent transparent; /* Устанавливает прозрачный цвет полосы прокрутки */
+    }
+
+    .popular-products-container {
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        margin-top: 150px;
+        scrollbar-width: thin; /* Устанавливает ширину полосы прокрутки */
+        scrollbar-color: transparent transparent; /* Устанавливает прозрачный цвет полосы прокрутки */
+    }
+
+    .scrollable-content {
+        display: inline-block;
+        border-radius: 10px;
+        background-color: #F5E1E9;
+        padding: 8px;
+    }
+
+    .categories-container::-webkit-scrollbar {
+        width: 0.5rem; /* Ширина полосы прокрутки */
+    }
+
+    .categories-container::-webkit-scrollbar-thumb {
+        background-color: transparent; /* Цвет фона полосы прокрутки */
+    }
+
+    .popular-products-container::-webkit-scrollbar {
+        width: 0.5rem; /* Ширина полосы прокрутки */
+    }
+
+    .popular-products-container::-webkit-scrollbar-thumb {
+        background-color: transparent; /* Цвет фона полосы прокрутки */
+    }
 </style>
 
 <div class="search-bar fixed-top">
@@ -43,7 +84,27 @@
     <img width="30" height="30" src="images/icons/second_white_bell_icon.png" class="ml-2"/>
 </div>
 
-<div class="mx-3">
+<div class="mx-3 categories-container">
+    @*<div>
+        @for (int i = 0; i < Categories.Count; i++)
+        {
+            <p>@Categories[i].CategoryName</p>
+        }
+    </div>*@
+    @for (int i = 0; i < Categories.Count; i++)
+    {
+        <div class="scrollable-content mr-3 my-2">
+            @Categories[i].CategoryName
+        </div>
+    }
+</div>
+
+<div class="mx-3" style="display: flex; justify-content: space-between; white-space: nowrap">
+    <h5 style="flex: 0;">Самые популярные товары</h5>
+    <h5 style="flex: 0;">Все</h5>
+</div>
+
+<div class="mx-3 popular-products-container">
 
 </div>
 
