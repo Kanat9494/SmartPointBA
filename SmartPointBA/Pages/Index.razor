@@ -1,5 +1,7 @@
 ﻿@page "/"
 @using MudBlazor
+@inject NavigationManager UriHelper
+
 
 <style>
     #is-home-active {
@@ -47,9 +49,10 @@
         overflow-x: auto;
         overflow-y: hidden;
         white-space: nowrap;
-        margin-top: 150px;
+        height: 150px;
         scrollbar-width: thin; /* Устанавливает ширину полосы прокрутки */
         scrollbar-color: transparent transparent; /* Устанавливает прозрачный цвет полосы прокрутки */
+        display: flex;
     }
 
     .scrollable-content {
@@ -73,6 +76,39 @@
 
     .popular-products-container::-webkit-scrollbar-thumb {
         background-color: transparent; /* Цвет фона полосы прокрутки */
+    }
+
+
+
+
+
+    .popular-products-item {
+        margin: 0 3px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .popular-products-image {
+        width: 100px;
+        height: 10px;
+        border: 1px solid transparent;
+    }
+
+        .popular-products-image img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+    .popular-products-name {
+        margin-top: 5px;
+        font-family: 'Open Sans Regular', sans-serif;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 </style>
 
@@ -105,22 +141,77 @@
 </div>
 
 <div class="mx-3 popular-products-container">
+    @for (int i = 0; i < PopularProducts.Count; i++)
+    {
+        <div class="popular-products-item">
+            <div class="popular-products-image">
+                <img src="@PopularProducts[i].ImageUrl" alt="@PopularProducts[i].ProductName"/>
 
+                <span>@PopularProducts[i].ProductName</span>
+            </div>
+            @*<img src="@PopularProducts[i].ImageUrl" height="50" width="50"/>*@
+
+            @*<div class="popular-products-name">@PopularProducts[i].ProductName</div>*@
+        </div>
+    }
 </div>
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="mx-3" style="display: flex; justify-content: space-between; white-space: nowrap">
+    <h5 style="flex: 0;">Скидки, магазины</h5>
+    <h5 style="flex: 0;">Все</h5>
+</div>
+
+<div class="mx-3">
+    @for (int i = 0; i < PopularProducts.Count; i++)
+    {
+        <div @onclick="SecondPage">
+            <div >
+                <img src="@PopularProducts[i].ImageUrl" alt="@PopularProducts[i].ProductName" />
+
+                <span>@PopularProducts[i].ProductName</span>
+            </div>
+            @*<img src="@PopularProducts[i].ImageUrl" height="50" width="50"/>*@
+
+            @*<div class="popular-products-name">@PopularProducts[i].ProductName</div>*@
+        </div>
+    }
+</div>
+
+<div class="mx-3" style="display: flex; justify-content: space-between; white-space: nowrap">
+    <h5 style="flex: 0;">Скидки, магазины</h5>
+    <h5 style="flex: 0;">Все</h5>
+</div>
+
+<div class="mx-3">
+    @for (int i = 0; i < PopularProducts.Count; i++)
+    {
+        <div @onclick="SecondPage">
+            <div>
+                <img src="@PopularProducts[i].ImageUrl" alt="@PopularProducts[i].ProductName" />
+
+                <span>@PopularProducts[i].ProductName</span>
+            </div>
+            @*<img src="@PopularProducts[i].ImageUrl" height="50" width="50"/>*@
+
+            @*<div class="popular-products-name">@PopularProducts[i].ProductName</div>*@
+        </div>
+    }
+</div>
 
 @code {
     public string SearchInputValue { get; set; }
     private List<Category> Categories { get; set; }
+    private List<PopularProduct> PopularProducts { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         Categories = new List<Category>();
+        PopularProducts = new List<PopularProduct>();
 
         await LoadCategories();
+
+        await LoadProducts();
     }
 
     private async Task LoadCategories()
@@ -130,5 +221,19 @@ Welcome to your new app.
             Categories = await ContentService.Instance().GetItemsAsync<Category>("api/Categories/LoadCategories");
         }
         catch {}
+    }
+
+    private async Task LoadProducts()
+    {
+        try
+        {
+            PopularProducts = await ContentService.Instance().GetItemsAsync<PopularProduct>("api/Products/LoadPopularProducts");
+        }
+        catch {}
+    }
+
+    private void SecondPage()
+    {
+        UriHelper.NavigateTo("counter");
     }
 }
