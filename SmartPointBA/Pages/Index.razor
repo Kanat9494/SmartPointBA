@@ -53,9 +53,21 @@ Welcome to your new app.
 
 @code {
     public string SearchInputValue { get; set; }
+    private List<Category> Categories { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        
+        Categories = new List<Category>();
+
+        await LoadCategories();
+    }
+
+    private async Task LoadCategories()
+    {
+        try
+        {
+            Categories = await ContentService.Instance().GetItemsAsync<Category>("api/Categories/LoadCategories");
+        }
+        catch {}
     }
 }
